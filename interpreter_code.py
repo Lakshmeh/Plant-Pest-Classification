@@ -1,7 +1,7 @@
 ##using tensorflow Lite
 import cv2
 import time
-import tensorflow as tf
+from tflite_runtime.interpreter import Interpreter
 import numpy as np
 
 FRAME_RATE = 1 / 5
@@ -15,7 +15,7 @@ def process_frame(frame):
 
     return preprocessed_frame
 
-interpreter = tf.lite.Interpreter(model_path='boot/firmware/Plant_Pest_Classifier.tflite')
+interpreter = Interpreter(model_path='boot/firmware/Plant_Pest_Classifier.tflite')
 interpreter.allocate_tensors()
 
 input_details = interpreter.get_input_details()
@@ -52,10 +52,10 @@ while True:
      
         predicted_class = class_labels[predicted_label]
         cv2.putText(frame, f'Predicted Class: {predicted_class}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-        cv2.imshow('Frame', frame)
-        key = cv2.waitKey(1)
-        if key == 27:  
-            break
+    cv2.imshow('Frame', frame)
+    key = cv2.waitKey(1)
+    if key == 27:  
+        break
 
 cap.release()
 cv2.destroyAllWindows()
