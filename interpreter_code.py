@@ -15,7 +15,7 @@ def process_frame(frame):
 
     return preprocessed_frame
 
-interpreter = Interpreter(model_path='home/pi/Downloads/Plant_Pest_Classifier.tflite')
+interpreter = Interpreter(model_path='/home/pi/Downloads/Plant_Pest_Classifier.tflite')
 interpreter.allocate_tensors()
 
 input_details = interpreter.get_input_details()
